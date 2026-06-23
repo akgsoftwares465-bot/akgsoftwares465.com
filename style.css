@@ -1176,14 +1176,14 @@ ul { list-style: none; }
 }
 /* The container holding both buttons */
 .sticky-social-container {
-  position: absolute;
+  position: fixed;
   right: 0;
   top: 50%;
   transform: translateY(-50%);
   z-index: 1000;
   display: flex;
-  flex-direction: column; /* Stacks them vertically */
-  gap: 8px; /* Adds a clean space between the two buttons */
+  flex-direction: column;
+  gap: 8px; /* Space between buttons */
 }
 
 /* Base styles for both links */
@@ -1194,7 +1194,7 @@ ul { list-style: none; }
   padding: 12px 16px;
   font-family: Arial, sans-serif;
   font-weight: bold;
-  border-radius: 8px 0 0 8px; /* Rounds only the left corners */
+  border-radius: 8px 0 0 8px;
   transition: padding-right 0.3s ease, opacity 0.3s ease;
 }
 
@@ -1210,8 +1210,8 @@ ul { list-style: none; }
   box-shadow: -2px 2px 8px rgba(220, 39, 67, 0.3);
 }
 
-/* Hover effect for both */
+/* Hover effect */
 .sticky-social-link:hover {
-  padding-right: 24px; /* Pops out slightly toward the left when hovered */
+  padding-right: 24px;
   opacity: 0.9;
 }
