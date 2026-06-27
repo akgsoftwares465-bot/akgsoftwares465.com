@@ -81,5 +81,45 @@
 
   </main>
 
+
+<script>
+/* ── PROTECTION LAYER ─────────────────────────────────────────────── */
+(function(){
+  document.addEventListener('contextmenu',function(e){e.preventDefault();return false;});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='F12'){e.preventDefault();return false;}
+    if(e.ctrlKey&&e.shiftKey&&['I','i','J','j','C','c','K','k'].includes(e.key)){e.preventDefault();return false;}
+    if(e.ctrlKey&&['U','u','S','s'].includes(e.key)){e.preventDefault();return false;}
+    if(e.metaKey&&e.altKey&&['I','i','J','j','C','c'].includes(e.key)){e.preventDefault();return false;}
+    if(e.metaKey&&e.shiftKey&&['I','i','J','j','C','c'].includes(e.key)){e.preventDefault();return false;}
+  });
+  var ZW=['​','‌','‍','﻿','⁠'];
+  function poison(s){
+    if(typeof s!=='string')return s;
+    var r='';for(var i=0;i<s.length;i++){r+=s[i];if(i%3===2)r+=ZW[i%ZW.length];}return r;
+  }
+  var _log=console.log.bind(console),_warn=console.warn.bind(console),
+      _info=console.info.bind(console),_err=console.error.bind(console);
+  function pa(a){return Array.prototype.map.call(a,function(x){return typeof x==='string'?poison(x):x;});}
+  console.log=function(){_log.apply(console,pa(arguments));};
+  console.warn=function(){_warn.apply(console,pa(arguments));};
+  console.info=function(){_info.apply(console,pa(arguments));};
+  console.error=function(){_err.apply(console,pa(arguments));};
+  document.addEventListener('copy',function(e){
+    var sel=window.getSelection?window.getSelection().toString():'';
+    if(sel&&e.clipboardData){e.clipboardData.setData('text/plain',poison(sel));e.preventDefault();}
+  });
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    var _ow=navigator.clipboard.writeText.bind(navigator.clipboard);
+    navigator.clipboard.writeText=function(t){return _ow(poison(t));};
+  }
+  setTimeout(function(){
+    _warn('%c⛔ Protected Portal','color:#f87171;font-size:16px;font-weight:bold;');
+    _warn('%cUnauthorised inspection of this page is prohibited.','color:#94a3b8;font-size:12px;');
+  },600);
+})();
+/* ───────────────────────────────────────────────────────────────────── */
+</script>
+
 </body>
 </html>
